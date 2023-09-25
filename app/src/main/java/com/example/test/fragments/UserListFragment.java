@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.test.R;
 import com.example.test.adapters.UserAdapter;
 import com.example.test.databinding.FragmentUserListBinding;
+import com.example.test.dialogs.UserInfoDialog;
 import com.example.test.entity.User;
 
 import java.util.ArrayList;
@@ -50,7 +51,13 @@ public class UserListFragment extends Fragment {
         binding.userList.setOnItemClickListener((adapterView, view, i, l) -> {
             Toast.makeText(getContext(), String.valueOf(i), Toast.LENGTH_LONG).show();
         });
-
+        binding.userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                UserInfoDialog dialog = UserInfoDialog.getInstance(userList.get(position));
+                dialog.show(getChildFragmentManager(), "user_info");
+            }
+        });
     }
     /*
     * Метод для инициализации добавления пользователя

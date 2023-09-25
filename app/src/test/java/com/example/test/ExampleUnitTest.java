@@ -26,6 +26,11 @@ public class ExampleUnitTest {
             System.out.println(
                     String.format("Login : %s, Money: %f, Gender: %s, Age : %d",user.login, user.money, user.gender, user.age));
         }
-
+    }
+    @Test
+    public void generateSubs(){
+        User user = new User("userLogin@gmail.com",50.0,"male",25);
+        User.generateUserSubscriptions(user,3);
+        assertEquals(3,user.userSubscriptions.size());
     }
 }

@@ -1,15 +1,23 @@
 package com.example.test.entity;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class User {
+public class User implements Serializable {
+    public static String [] subscriptionsNames = {
+            "NETFLIX", "Yandex Music", "Spotify",
+            "Google Cloud", "VK Music", "Microsoft 360",
+            "AMAZON PRIME"
+    };
     public String login;
     public double money;
     public String gender;
     public int age;
+    public List<String> userSubscriptions = new ArrayList<>();
     public User(String login, double money, String gender, int age) {
         this.login = login;
         this.money = money;
@@ -32,5 +40,15 @@ public class User {
                     random.nextInt(82) + 18));
         }
         return testUsers;
+    }
+    public static void generateUserSubscriptions(User user, int subsCount){
+        List<String> subscriptions = new ArrayList<>(User.subscriptionsNames.length);
+        Collections.addAll(subscriptions, User.subscriptionsNames);
+        Random random = new Random();
+        for(int i = 0; i<subsCount;i++){
+            int randomDigit = random.nextInt(subscriptions.size());
+            user.userSubscriptions.add(subscriptions.get(randomDigit));
+            subscriptions.remove(randomDigit);
+        }
     }
 }
