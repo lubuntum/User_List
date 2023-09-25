@@ -15,6 +15,8 @@ import com.example.test.R;
 import com.example.test.databinding.FragmentAddUserBinding;
 import com.example.test.entity.User;
 
+import java.util.Random;
+
 public class AddUserFragment extends Fragment {
     FragmentAddUserBinding binding;
     public AddUserFragment() {
@@ -47,11 +49,14 @@ public class AddUserFragment extends Fragment {
     }
     private void initCommitBtn(){
         binding.commitBtn.setOnClickListener((v)->{
+            Random random = new Random();
             String login = binding.userLogin.getText().toString();
             int age = Integer.valueOf(binding.userAge.getText().toString());
             String gender = binding.userGender.getText().toString();
             if(age == 0 || login.equals("") ) return;
             User user = new User(login, 0, gender, age);
+            User.generateUserSubscriptions(
+                    user, random.nextInt(User.subscriptionsNames.length));
 
             UserListFragment.userList.add(user);
 

@@ -33,11 +33,16 @@ public class User implements Serializable {
             double randomNumber = random.nextDouble() * 100;
             String roundedNumber = decimalFormat.format(randomNumber);
             double roundedValue = Double.parseDouble(roundedNumber);
-            testUsers.add(new User(
+            User tempUser = new User(
                     "userLogin" + i,
                     roundedValue,
                     genders[random.nextInt(3)],
-                    random.nextInt(82) + 18));
+                    random.nextInt(82) + 18);
+            User.generateUserSubscriptions(
+                    tempUser,
+                    random.nextInt(User.subscriptionsNames.length));
+            testUsers.add(tempUser);
+
         }
         return testUsers;
     }

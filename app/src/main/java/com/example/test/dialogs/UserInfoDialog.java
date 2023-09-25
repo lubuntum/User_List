@@ -13,14 +13,19 @@ import androidx.fragment.app.DialogFragment;
 import com.example.test.databinding.DialogUserInfoBinding;
 import com.example.test.entity.User;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 public class UserInfoDialog extends DialogFragment {
     private User user;
     public static String USER_KEY;
+    public static String USER_SUBS;
     DialogUserInfoBinding binding;
     /*Метод для создания окна и передачи User*/
     public static UserInfoDialog  getInstance(User user){
         Bundle args = new Bundle();
         args.putSerializable(USER_KEY, user);
+        //args.putSerializable(USER_SUBS, (Serializable) user.userSubscriptions);
         UserInfoDialog userInfoDialog = new UserInfoDialog();
         userInfoDialog.setArguments(args);
         return userInfoDialog;
@@ -32,6 +37,7 @@ public class UserInfoDialog extends DialogFragment {
         /*Получаем переданного пользователя через входные аргументы*/
         if(getArguments()!=null && getArguments().containsKey(USER_KEY)){
             this.user = (User)getArguments().getSerializable(USER_KEY);
+            //this.user.userSubscriptions = (ArrayList<String>)getArguments().getSerializable(USER_SUBS);
         }
         /*Инициализация binding*/
         binding = DialogUserInfoBinding.inflate(inflater, container, false);
